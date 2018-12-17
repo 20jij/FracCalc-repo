@@ -78,13 +78,37 @@ public class FracCalc {
         result[0] = result[1]/result[2];
         result[1] = result[1]%result[2];
         //change the sign of result fraction part if it's negative.
-        if (result[1]<0  ) {
+        if (result[1]<0 &&result[2]<0) {
         	result[1] = -result[1];
- 
+        	result[2] = -result[2];
+        }
+        else if (result[1] <0) {
+        	if (result[0]<0) {
+            	result[1] = -result[1];
+            	
+            } 
+        	else if (result[0]>0){
+        		result[0] = -result[0];
+        		result[1] = -result[1];
+        	}
+        }
+        else if(result[2]<0) {
+        	if (result[0]<0) {
+            	result[2] = -result[2];
+            	
+            }
+        	else if (result[0]>0){
+        		result[0] = -result[0];
+        		result[2] = -result[2];
+        	}
         }
         
+        //return the answer
         if (result[1] == 0) {
         	 return (result[0] +"");
+        }
+        else if(result[0]==0) {
+        	return (result[1]+ "/" + result[2]);
         }
         else {
         	return ( result[0] + "_" + result[1] + "/" + result[2]) ;
@@ -114,6 +138,7 @@ public class FracCalc {
 				 result = factor;
 			}
 		}
+		
 		return result;
     }
     
