@@ -30,93 +30,112 @@ public class FracCalc {
     //        
     // The function should return the result of the fraction after it has been calculated
     //      e.g. return ==> "1_1/4"
-    public static String produceAnswer(String input)
-    { 
-        // TODO: Implement this function to produce the solution to the input
-        String[] threeParts = input.split(" ");
-        int[] firstOperand = new int [3];
-        int[] secondOperand = new int [3];
-        secondOperand = checkpoint2(threeParts[2],secondOperand);
-        firstOperand = checkpoint2(threeParts[0],firstOperand);
-        // convert to improper fraction
-        toImproper(firstOperand);
-        toImproper(secondOperand);  
-        
-        int[] result = new int [3];
-        //calculations
-        if (threeParts[1].equals("+")) {
-        	toCommonDenominator(firstOperand, secondOperand);
-          	result[1] = firstOperand[1] + secondOperand[1];
-        	result[2] = firstOperand[2];
-        }
-        else if(threeParts[1].equals("-")) {
-        	toCommonDenominator(firstOperand, secondOperand);
-        	result[1] = firstOperand[1] - secondOperand[1];
-        	result[2] = firstOperand[2];
-
-        }
-        else if(threeParts[1].equals("*")) {
-        	result[1] = firstOperand[1] * secondOperand[1];
-        	result[2] = firstOperand[2] * secondOperand[2];
-        } 
-        else {
-        	result[1] = firstOperand[1] * secondOperand[2];
-        	result[2] = firstOperand[2] * secondOperand[1];
-        	
-        }
-        
-       
-       
-    	// reduce fraction
-        int i = 0;
-        while (i != 1) {
-        	i = greatestCommonFactor(result[1], result[2]);
-        	result[1] = result[1]/i;
-        	result[2] = result[2]/i;
-        }
-        
-        result[0] = result[1]/result[2];
-        result[1] = result[1]%result[2];
-        //change the sign of result fraction part if it's negative.
-        if (result[1]<0 &&result[2]<0) {
-        	result[1] = -result[1];
-        	result[2] = -result[2];
-        }
-        else if (result[1] <0) {
-        	if (result[0]<0) {
-            	result[1] = -result[1];
-            	
-            } 
-        	else if (result[0]>0){
-        		result[0] = -result[0];
-        		result[1] = -result[1];
-        	}
-        }
-        else if(result[2]<0) {
-        	if (result[0]<0) {
-            	result[2] = -result[2];
-            	
-            }
-        	else if (result[0]>0){
-        		result[0] = -result[0];
-        		result[2] = -result[2];
-        	}
-        }
-        
-        //return the answer
-        if (result[1] == 0) {
-        	 return (result[0] +"");
-        }
-        else if(result[0]==0) {
-        	return (result[1]+ "/" + result[2]);
-        }
-        else {
-        	return ( result[0] + "_" + result[1] + "/" + result[2]) ;
-        }
-        
+   
+    
+    // ** IMPORTANT ** DO NOT DELETE THIS FUNCTION.  This function will be used to test your code
+	// This function takes a String 'input' and produces the result
+	//
+	// input is a fraction string that needs to be evaluated.  For your program, this will be the user input.
+	//      e.g. input ==> "1/2 + 3/4"
+	//        
+	// The function should return the result of the fraction after it has been calculated
+	//      e.g. return ==> "1_1/4"
+	public static String produceAnswer(String input)
+	{ 
+	    // TODO: Implement this function to produce the solution to the input
+	    String[] threeParts = input.split(" ");
+	    int[] firstOperand = new int [3];
+	    int[] secondOperand = new int [3];
+	    secondOperand = checkpoint2(threeParts[2],secondOperand);
+	    firstOperand = checkpoint2(threeParts[0],firstOperand);
+	    // convert to improper fraction
+	    toImproper(firstOperand);
+	    toImproper(secondOperand);  
+	    
+	    int[] result = new int [3];
+	    //calculations
+	    if (threeParts[1].equals("+")) {
+	    	toCommonDenominator(firstOperand, secondOperand);
+	      	result[1] = firstOperand[1] + secondOperand[1];
+	    	result[2] = firstOperand[2];
+	    }
+	    else if(threeParts[1].equals("-")) {
+	    	toCommonDenominator(firstOperand, secondOperand);
+	    	result[1] = firstOperand[1] - secondOperand[1];
+	    	result[2] = firstOperand[2];
+	
+	    }
+	    else if(threeParts[1].equals("*")) {
+	    	result[1] = firstOperand[1] * secondOperand[1];
+	    	result[2] = firstOperand[2] * secondOperand[2];
+	    } 
+	    else {
+	    	result[1] = firstOperand[1] * secondOperand[2];
+	    	result[2] = firstOperand[2] * secondOperand[1];
+	    	
+	    }
+	    
+	
+	
+		// reduce fraction
+	    if (result[1]<0 &&result[2]<0) {
+	    	result[1] = -result[1];
+	    	result[2] = -result[2];
+	    }
+	    int i = 0;
+	    while (i != 1) {
+	    	i = greatestCommonFactor(result[1], result[2]);
+	    	result[1] = result[1]/i;
+	    	result[2] = result[2]/i;
+	    }
+	    
+	    result[0] = result[1]/result[2];
+	    result[1] = result[1]%result[2];
+	    //change the sign of result fraction part if it's negative.
+	   
+	  
+	    if (result[1] <0) {
+	    	if (result[0]<0) {
+	        	result[1] = -result[1];
+	        	
+	        } 
+	    	else if (result[0]>0){
+	    		result[0] = -result[0];
+	    		result[1] = -result[1];
+	    	}
+	   
+	    	}
+	    
+	    else if(result[2]<0) {
+	    	if (result[0]<0) {
+	        	result[2] = -result[2];
+	        	
+	        }
+	    	else if (result[0]>0){
+	    		result[0] = -result[0];
+	    		result[2] = -result[2];
+	    	}
+	    	else if (result[0]==0 && result[1]>0) {
+	    		result[1]=-result[1];
+	    		result[2]=-result[2];
+	    	}
+	    }
+	    
+	    //return the answer
+	    if (result[1] == 0) {
+	    	 return (result[0] +"");
+	    }
+	    else if(result[0]==0) {
+	    	return (result[1]+ "/" + result[2]);
+	    }
+	    else {
+	    	return ( result[0] + "_" + result[1] + "/" + result[2]) ;
+	    }
+	    
 		
-    }
-    public static void toCommonDenominator (int [] operand1, int[] operand2) {
+	}
+
+	public static void toCommonDenominator (int [] operand1, int[] operand2) {
     	
     	int temp = operand1[2] ;
     	operand1[2] = operand1[2] * operand2[2];
@@ -130,8 +149,9 @@ public class FracCalc {
     
     
     public static int greatestCommonFactor(int a,int b) {
-		int result = 1;
-		for (int factor=2; factor<=a;factor++) {
+    	double limit = max(absValue(a), absValue(b));
+    	int result = 1;
+		for (int factor=2; factor<=limit;factor++) {
 			boolean c = isDivisibleBy(a,factor);
 			boolean d = isDivisibleBy(b,factor);
 			if(c==true && d==true) {
@@ -189,6 +209,24 @@ public class FracCalc {
 		else {
 			return false;
 		}	
+	}
+    public static double absValue(double number) {
+		if (number>=0) {
+			double answer = number;
+			return answer;
+		}
+		else {
+			double answer = number-2*number;
+			return answer;
+		}
+	}
+    public static double max(double number1, double number2) {
+		if (number1>number2) {
+			return number1;
+		}
+		else {
+			return number2;
+		}
 	}
     // TODO: Fill in the space below with any helper methods that you think you will need
     
